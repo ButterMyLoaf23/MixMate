@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  username     String
+  email        String     @unique
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  favorites    Favorite[]
+  recipes      Recipe[]
+}
+
+model Recipe {
+  id           Int              @id @default(autoincrement())
+  authorId     Int?
+  name         String
+  slug         String           @unique
+  description  String
+  instructions String
+  prepMinutes  Int              @default(5)
+  difficulty   Difficulty       @default(EASY)
+  flavor       FlavorProfile    @default(OTHER)
+  isPublished  Boolean          @default(true)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  author       User?            @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  ingredients  RecipeIngredient[]
+  favorites    Favorite[]
+
+  @@index([authorId])
+  @@index([flavor])
+}
+
+model Ingredient {
+  id      Int                @id @default(autoincrement())
+  name    String             @unique
+  recipes RecipeIngredient[]
+}
+
+model RecipeIngredient {
+  id           Int        @id @default(autoincrement())
+  recipeId     Int
+  ingredientId Int
+  amount       String
+  recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+
+  @@unique([recipeId, ingredientId])
+  @@index([ingredientId])
+}
+
+model Favorite {
+  userId   Int
+  recipeId Int
+  createdAt DateTime @default(now())
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipe   Recipe    @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@id([userId, recipeId])
+  @@index([recipeId])
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  ADVANCED
+}
+
+enum FlavorProfile {
+  FRESH_HERBAL
+  BRIGHT_FRUITY
+  ZESTY_SPICY
+  SWEET_MELLOW
+  OTHER
+}
