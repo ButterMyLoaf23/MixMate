@@ -24,12 +24,13 @@ h2, h3 { color: #234f3c; }
 .section-heading a { color: #2e7656; font-weight: 700; }
 .recipe-grid, .recipe-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .recipe-card, .recipe-list-card { overflow: hidden; border: 1px solid #e3e8df; border-radius: 1rem; background: #fffef9; }
-.recipe-art { height: 180px; background: #cde8d5; }
+.recipe-art { display: block; width: 100%; height: 180px; object-fit: cover; background: #cde8d5; }
 .recipe-card.berry .recipe-art { background: #ead0d5; }
 .recipe-card.citrus .recipe-art { background: #f4dfb8; }
 .recipe-card-body, .recipe-list-card { padding: 1.1rem; }
 .recipe-card h3, .recipe-list-card h2 { margin: 0 0 .35rem; }
 .recipe-card-body p:last-child, .recipe-list-card > p:not(.card-label) { color: #758278; font-size: .9rem; }
+.recipe-title-link { text-decoration: none; }
 .page-heading { padding: 4rem 0 2rem; align-items: end; }
 .page-heading h1 { font-size: clamp(2.5rem, 5vw, 4.4rem); }
 .page-heading > div > p:last-child { max-width: 600px; color: #68796e; line-height: 1.6; }
@@ -52,6 +53,7 @@ input, select { width: 100%; border: 1px solid #d4dfd4; border-radius: .6rem; pa
 .recipe-detail-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 2rem; }
 .recipe-section { border: 1px solid #e3e8df; border-radius: 1rem; padding: 1.4rem; background: #fffef9; }
 .recipe-section h2 { margin-top: 0; }
+.section-description { color: #68796e; line-height: 1.6; }
 .recipe-section ul { display: grid; gap: .75rem; margin: 0; padding: 0; list-style: none; }
 .recipe-section li { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid #edf1e9; padding-bottom: .6rem; }
 .instructions { color: #53645a; line-height: 1.8; }

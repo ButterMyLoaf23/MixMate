@@ -35,23 +35,14 @@ const recipes = [
   { name: 'Hibiscus Ginger Cooler', slug: 'hibiscus-ginger-cooler', description: 'Tart hibiscus tea meets spicy ginger and citrus.', instructions: 'Combine chilled hibiscus tea, lime, and ginger syrup over ice. Top with soda.', flavor: 'ZESTY_SPICY', ingredients: [['Hibiscus tea', '3 oz'], ['Lime juice', '1 oz'], ['Ginger syrup', '1/2 oz'], ['Soda water', '3 oz']] }
 ];
 
-// Each recipe gets its own real Flickr photo search, keyed to the drink's ingredients.
-// The lock value keeps the photo unique across the catalog.
-const photoKeywords = [
-  'cucumber,mint,drink', 'berry,basil,drink', 'ginger,citrus,drink', 'peach,tea,drink',
-  'pomegranate,rosemary,drink', 'mango,chili,drink', 'lavender,lemonade,drink', 'watermelon,lime,drink',
-  'shirley,temple,drink', 'strawberry,mint,drink', 'rosemary,pomegranate,drink', 'mint,basil,limeade',
-  'ginger,lemon,ade', 'lime,tonic,drink', 'citrus,fizz,drink', 'grapefruit,paloma,drink',
-  'mint,lime,mojito', 'pineapple,coconut,drink', 'strawberry,daiquiri,drink', 'apple,ginger,mule',
-  'cranberry,orange,spritz', 'blueberry,lemon,drink', 'pineapple,jalapeno,drink', 'honey,lavender,drink',
-  'blackberry,sage,drink', 'raspberry,rose,lemonade', 'pineapple,orange,sunrise', 'cantaloupe,cucumber,drink',
-  'cherry,lime,drink', 'vanilla,chai,drink', 'hibiscus,ginger,drink'
+// Stable public drink photographs. Each recipe receives a different image.
+const photoUrls = [
+  'https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg', 'https://www.thecocktaildb.com/images/media/drink/07iep51598719977.jpg', 'https://www.thecocktaildb.com/images/media/drink/drtihp1606768397.jpg', 'https://www.thecocktaildb.com/images/media/drink/125w0o1630407389.jpg', 'https://www.thecocktaildb.com/images/media/drink/yt9i7n1504370388.jpg', 'https://www.thecocktaildb.com/images/media/drink/twyrrp1439907470.jpg', 'https://www.thecocktaildb.com/images/media/drink/hrxfbl1606773109.jpg', 'https://www.thecocktaildb.com/images/media/drink/7rfuks1504371562.jpg', 'https://www.thecocktaildb.com/images/media/drink/5ia6j21504887829.jpg', 'https://www.thecocktaildb.com/images/media/drink/deu59m1504736135.jpg', 'https://www.thecocktaildb.com/images/media/drink/qgdu971561574065.jpg', 'https://www.thecocktaildb.com/images/media/drink/squyyq1439907312.jpg', 'https://www.thecocktaildb.com/images/media/drink/wyrsxu1441554538.jpg', 'https://www.thecocktaildb.com/images/media/drink/qcgz0t1643821443.jpg', 'https://www.thecocktaildb.com/images/media/drink/mtpxgk1504373297.jpg', 'https://www.thecocktaildb.com/images/media/drink/samm5j1513706393.jpg', 'https://www.thecocktaildb.com/images/media/drink/jgvn7p1582484435.jpg', 'https://www.thecocktaildb.com/images/media/drink/upgsue1668419912.jpg', 'https://www.thecocktaildb.com/images/media/drink/mrz9091589574515.jpg', 'https://www.thecocktaildb.com/images/media/drink/wmkbfj1606853905.jpg', 'https://www.thecocktaildb.com/images/media/drink/urpyqs1439907531.jpg', 'https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg', 'https://www.thecocktaildb.com/images/media/drink/t0aja61504348715.jpg', 'https://www.thecocktaildb.com/images/media/drink/twtbh51630406392.jpg', 'https://www.thecocktaildb.com/images/media/drink/fi67641668420787.jpg', 'https://www.thecocktaildb.com/images/media/drink/quqyqp1480879103.jpg', 'https://www.thecocktaildb.com/images/media/drink/5wm4zo1582579154.jpg', 'https://www.thecocktaildb.com/images/media/drink/nwx02s1515795822.jpg', 'https://www.thecocktaildb.com/images/media/drink/7cll921606854636.jpg', 'https://www.thecocktaildb.com/images/media/drink/wx7hsg1504370510.jpg', 'https://www.thecocktaildb.com/images/media/drink/vrwquq1478252802.jpg'
 ];
 
 for (const item of recipes) {
   const { ingredients, ...recipeData } = item;
-  const photoQuery = photoKeywords[recipes.indexOf(item) % photoKeywords.length];
-  recipeData.imageUrl = `https://loremflickr.com/900/700/${photoQuery}?lock=${recipes.indexOf(item) + 1}`;
+  recipeData.imageUrl = photoUrls[recipes.indexOf(item) % photoUrls.length];
   const recipe = await prisma.recipe.upsert({ where: { slug: item.slug }, update: recipeData, create: recipeData });
   for (const [name, amount] of ingredients) {
     const ingredient = await prisma.ingredient.upsert({ where: { name }, update: {}, create: { name } });
