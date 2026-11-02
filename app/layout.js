@@ -14,6 +14,7 @@ export default function RootLayout({ children }) {
           <nav>
             <a href="/recipes">Recipes</a>
             <a href="/favorites">Favorites</a>
+            <a href="/my-recipes">My recipes</a>
             <a href="/login">Log in</a>
             <a className="button primary nav-button" href="/register">Create account</a>
           </nav>

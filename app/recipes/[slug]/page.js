@@ -1,14 +1,18 @@
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import { getCurrentUser } from '@/lib/session';
+import FavoriteButton from '@/app/components/FavoriteButton';
 
 export default async function RecipePage({ params }) {
   const { slug } = await params;
   const recipe = await prisma.recipe.findUnique({
     where: { slug },
-    include: { ingredients: { include: { ingredient: true } } }
+    include: { ingredients: { include: { ingredient: true } }, author: true }
   });
 
   if (!recipe) notFound();
+  const user = await getCurrentUser();
+  const favorite = user ? await prisma.favorite.findUnique({ where: { userId_recipeId: { userId: user.id, recipeId: recipe.id } } }) : null;
 
   return (
     <article className="recipe-detail">
@@ -17,6 +21,7 @@ export default async function RecipePage({ params }) {
       <h1>{recipe.name}</h1>
       <p className="recipe-intro">{recipe.description}</p>
       <div className="recipe-detail-meta"><span>{recipe.prepMinutes} minutes</span><span>{recipe.difficulty.toLowerCase()}</span></div>
+      {user ? <FavoriteButton slug={recipe.slug} initialFavorited={Boolean(favorite)} /> : <p><a className="text-button" href="/login">Log in to save this recipe</a></p>}
       <div className="recipe-detail-grid">
         <section className="recipe-section"><h2>Ingredients</h2><ul>{recipe.ingredients.map((item) => <li key={item.id}><span>{item.ingredient.name}</span><strong>{item.amount}</strong></li>)}</ul></section>
         <section className="recipe-section"><h2>Instructions</h2><p className="instructions">{recipe.instructions}</p></section>
