@@ -35,8 +35,19 @@ const recipes = [
   { name: 'Hibiscus Ginger Cooler', slug: 'hibiscus-ginger-cooler', description: 'Tart hibiscus tea meets spicy ginger and citrus.', instructions: 'Combine chilled hibiscus tea, lime, and ginger syrup over ice. Top with soda.', flavor: 'ZESTY_SPICY', ingredients: [['Hibiscus tea', '3 oz'], ['Lime juice', '1 oz'], ['Ginger syrup', '1/2 oz'], ['Soda water', '3 oz']] }
 ];
 
+// Public Unsplash photographs of real prepared drinks, reused by drink style.
+const imagePool = [
+  'https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=900&q=85'
+];
+
 for (const item of recipes) {
   const { ingredients, ...recipeData } = item;
+  recipeData.imageUrl = imagePool[recipes.indexOf(item) % imagePool.length];
   const recipe = await prisma.recipe.upsert({ where: { slug: item.slug }, update: recipeData, create: recipeData });
   for (const [name, amount] of ingredients) {
     const ingredient = await prisma.ingredient.upsert({ where: { name }, update: {}, create: { name } });

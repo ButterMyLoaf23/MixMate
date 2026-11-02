@@ -36,6 +36,10 @@ h2, h3 { color: #234f3c; }
 .filters { display: grid; grid-template-columns: 2fr 1fr auto; gap: .7rem; margin-bottom: 1.4rem; }
 input, select { width: 100%; border: 1px solid #d4dfd4; border-radius: .6rem; padding: .8rem; color: #26352d; background: #fffef9; font: inherit; }
 .recipe-list { grid-template-columns: repeat(4, 1fr); }
+.recipe-photo { display: block; width: 100%; height: 190px; object-fit: cover; }
+.recipe-list-card-body { padding: 1.1rem; }
+.recipe-detail-photo { display: block; width: min(100%, 760px); max-height: 440px; margin: 1.5rem 0; border-radius: 1rem; object-fit: cover; }
+.user-greeting { color: #234f3c; font-weight: 750; }
 .recipe-list-card h2 { font-size: 1.15rem; }
 .recipe-meta { display: flex; gap: .6rem; color: #758278; font-size: .82rem; }
 .text-button { margin-top: 1.3rem; padding: 0; border: 0; color: #2e7656; background: transparent; font: inherit; font-weight: 750; cursor: pointer; }

@@ -24,6 +24,7 @@ model Recipe {
   slug         String           @unique
   description  String
   instructions String
+  imageUrl     String?
   prepMinutes  Int              @default(5)
   difficulty   Difficulty       @default(EASY)
   flavor       FlavorProfile    @default(OTHER)

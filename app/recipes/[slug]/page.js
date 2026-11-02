@@ -19,6 +19,7 @@ export default async function RecipePage({ params }) {
       <a className="back-link" href="/recipes">← Back to recipes</a>
       <p className="eyebrow">{recipe.flavor.replace('_', ' ')}</p>
       <h1>{recipe.name}</h1>
+      {recipe.imageUrl && <img className="recipe-detail-photo" src={recipe.imageUrl} alt={`${recipe.name} mocktail`} />}
       <p className="recipe-intro">{recipe.description}</p>
       <div className="recipe-detail-meta"><span>{recipe.prepMinutes} minutes</span><span>{recipe.difficulty.toLowerCase()}</span></div>
       {user ? <FavoriteButton slug={recipe.slug} initialFavorited={Boolean(favorite)} /> : <p><a className="text-button" href="/login">Log in to save this recipe</a></p>}
