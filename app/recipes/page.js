@@ -2,13 +2,13 @@ import { prisma } from '@/lib/db';
 
 const fallbackRecipes = [
   { name: 'Cucumber Mint Cooler', slug: 'cucumber-mint-cooler', description: 'Cucumber, mint, lime, sparkling water', difficulty: 'EASY', prepMinutes: 5, flavor: 'FRESH_HERBAL', imageUrl: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85' },
-  { name: 'Berry Basil Fizz', slug: 'berry-basil-fizz', description: 'Mixed berries, basil, lemon, soda water', difficulty: 'EASY', prepMinutes: 8, flavor: 'BRIGHT_FRUITY' },
-  { name: 'Ginger Citrus Spritz', slug: 'ginger-citrus-spritz', description: 'Ginger, orange, lemon, tonic water', difficulty: 'EASY', prepMinutes: 6, flavor: 'ZESTY_SPICY' },
-  { name: 'Peach Tea Smash', slug: 'peach-tea-smash', description: 'Peach, black tea, lemon, honey', difficulty: 'EASY', prepMinutes: 10, flavor: 'SWEET_MELLOW' }
+  { name: 'Berry Basil Fizz', slug: 'berry-basil-fizz', description: 'Mixed berries, basil, lemon, soda water', difficulty: 'EASY', prepMinutes: 8, flavor: 'BRIGHT_FRUITY', imageUrl: 'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Ginger Citrus Spritz', slug: 'ginger-citrus-spritz', description: 'Ginger, orange, lemon, tonic water', difficulty: 'EASY', prepMinutes: 6, flavor: 'ZESTY_SPICY', imageUrl: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=85' },
+  { name: 'Peach Tea Smash', slug: 'peach-tea-smash', description: 'Peach, black tea, lemon, honey', difficulty: 'EASY', prepMinutes: 10, flavor: 'SWEET_MELLOW', imageUrl: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=85' }
 ];
 
 async function loadRecipes() {
-  try { return await prisma.recipe.findMany({ where: { isPublished: true }, orderBy: { name: 'asc' } }); }
+  try { const recipes = await prisma.recipe.findMany({ where: { isPublished: true }, orderBy: { name: 'asc' } }); return recipes.length ? recipes : fallbackRecipes; }
   catch { return fallbackRecipes; }
 }
 
