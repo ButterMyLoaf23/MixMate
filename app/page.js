@@ -1,9 +1,9 @@
 import { prisma } from '@/lib/db';
 
 const fallbackRecipes = [
-  { name: 'Cucumber Mint Cooler', slug: 'cucumber-mint-cooler', flavor: 'FRESH_HERBAL', prepMinutes: 5, difficulty: 'EASY', imageUrl: 'https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg' },
-  { name: 'Berry Basil Fizz', slug: 'berry-basil-fizz', flavor: 'BRIGHT_FRUITY', prepMinutes: 8, difficulty: 'EASY', imageUrl: 'https://www.thecocktaildb.com/images/media/drink/07iep51598719977.jpg' },
-  { name: 'Ginger Citrus Spritz', slug: 'ginger-citrus-spritz', flavor: 'ZESTY_SPICY', prepMinutes: 6, difficulty: 'EASY', imageUrl: 'https://www.thecocktaildb.com/images/media/drink/drtihp1606768397.jpg' }
+  { name: 'Cucumber Mint Cooler', slug: 'cucumber-mint-cooler', flavor: 'FRESH_HERBAL', prepMinutes: 5, difficulty: 'EASY', imageUrl: 'https://loremflickr.com/900/700/nonalcoholic,mocktail,cucumber,mint?lock=100' },
+  { name: 'Berry Basil Fizz', slug: 'berry-basil-fizz', flavor: 'BRIGHT_FRUITY', prepMinutes: 8, difficulty: 'EASY', imageUrl: 'https://loremflickr.com/900/700/nonalcoholic,mocktail,berries,basil?lock=101' },
+  { name: 'Ginger Citrus Spritz', slug: 'ginger-citrus-spritz', flavor: 'ZESTY_SPICY', prepMinutes: 6, difficulty: 'EASY', imageUrl: 'https://loremflickr.com/900/700/nonalcoholic,mocktail,ginger,citrus?lock=102' }
 ];
 
 async function loadPopularRecipes() {

@@ -36,6 +36,7 @@ h2, h3 { color: #234f3c; }
 .page-heading h1 { font-size: clamp(2.5rem, 5vw, 4.4rem); }
 .page-heading > div > p:last-child { max-width: 600px; color: #68796e; line-height: 1.6; }
 .filters { display: grid; grid-template-columns: 2fr 1fr auto; gap: .7rem; margin-bottom: 1.4rem; }
+.search-count { align-self: center; color: #68796e; font-size: .9rem; }
 input, select { width: 100%; border: 1px solid #d4dfd4; border-radius: .6rem; padding: .8rem; color: #26352d; background: #fffef9; font: inherit; }
 .recipe-list { grid-template-columns: repeat(4, 1fr); }
 .recipe-photo { display: block; width: 100%; height: 190px; object-fit: cover; }
